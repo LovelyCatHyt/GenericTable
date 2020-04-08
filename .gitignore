@@ -338,3 +338,8 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+# These are unecessary in the repo.
+*.sln
+*.vcxproj
+*.filters
