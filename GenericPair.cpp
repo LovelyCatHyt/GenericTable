@@ -1,3 +1,4 @@
+#pragma once
 #include "GenericPair.h"
 
 namespace GenericTable
@@ -11,24 +12,22 @@ namespace GenericTable
 	{
 		return lable;
 	}
-	template<typename T>
-	T& GenericPair<T>::GetValueRef()
-	{
-		return value;
-	}
+
 	template<typename T>
 	bool GenericPair<T>::operator<(const IGenericPair& other) const
 	{
-		return value < other.value;
+		return value < ((GenericPair<T>*)& other)->value;
 	}
+	
 	template<typename T>
 	bool GenericPair<T>::operator>(const IGenericPair& other) const
 	{
-		return value > other.value;
+		return value > ((GenericPair<T>*)& other)->value;
 	}
+
 	template<typename T>
 	bool GenericPair<T>::operator==(const IGenericPair& other) const
 	{
-		return value == other.value;
+		return value == ((GenericPair<T>*)& other)->value;
 	}
 }

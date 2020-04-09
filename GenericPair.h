@@ -8,7 +8,7 @@ namespace GenericTable
 {
 	//通用的键值对
 	template<typename T>
-	class GenericPair : IGenericPair
+	class GenericPair : public IGenericPair
 	{
 	protected:
 		string lable;
@@ -19,9 +19,14 @@ namespace GenericTable
 		string GetLable()const;
 		//获取储存的值
 		T& GetValueRef();
-		virtual bool operator<(const IGenericPair& other)const;
-		virtual bool operator>(const IGenericPair& other)const;
-		virtual bool operator==(const IGenericPair& other)const;
+		bool IGenericPair::operator<(const IGenericPair& other)const;
+		bool IGenericPair::operator>(const IGenericPair& other)const;
+		bool IGenericPair::operator==(const IGenericPair& other)const;
 	};
 	
+	template<typename T>
+	T& GenericPair<T>::GetValueRef()
+	{
+		return value;
+	}
 }
