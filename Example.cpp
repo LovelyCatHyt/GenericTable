@@ -1,6 +1,5 @@
 #include <iostream>
-#include "PairGroup.h"
-#include "GenericPair.cpp"
+#include "GenTable.h"
 
 using std::string;
 using std::cout;
@@ -9,9 +8,15 @@ using namespace GenericTable;
 int main()
 {
 	IGenericPair* pairs[] = { new GenericPair<int>("Test",114514), new GenericPair<float>("Another",2.5) };
-	PairGroup newGroup(pairs, 2);
-	int& test = newGroup.GetPair<int>("Test");
-	cout << test<<'\n';
-	test = 2333;
-	cout << newGroup.GetPair<int>("Test");
+	PairGroup sampleGroup(pairs, 2);
+	GenTable table(sampleGroup);
+	table.Extend(5);
+	table[0].GetPair<float>("Another") = 0;
+	table[1].GetPair<float>("Another") = 3;
+	table[2].GetPair<float>("Another") = 2;
+	table[3].GetPair<float>("Another") = 1;
+	table[4].GetPair<float>("Another") = 4;
+	table.Sort<float>("Another");
+	for (int i = 0; i < 5; i++)
+		cout << table[i].GetPair<float>("Another") << '\n';
 }

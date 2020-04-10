@@ -19,6 +19,8 @@ namespace GenericTable
 		string GetLable()const;
 		//获取储存的值
 		T& GetValueRef();
+		IGenericPair* CopyNew();
+		//virtual IGenericPair operator=(const IGenericPair& src);
 		bool IGenericPair::operator<(const IGenericPair& other)const;
 		bool IGenericPair::operator>(const IGenericPair& other)const;
 		bool IGenericPair::operator==(const IGenericPair& other)const;
@@ -28,5 +30,47 @@ namespace GenericTable
 	T& GenericPair<T>::GetValueRef()
 	{
 		return value;
+	}
+
+	template<typename T>
+	inline IGenericPair* GenericPair<T>::CopyNew()
+	{
+		return new GenericPair<T>(lable, value);
+	}
+
+	//template<typename T>
+	//inline IGenericPair GenericPair<T>::operator=(const IGenericPair& src)
+	//{
+	//	lable = src.GetLable();
+	//	value = ((GenericPair<T>*) & src)->value;
+	//	return *this;
+	//}
+
+	template<typename T>
+	GenericPair<T>::GenericPair(string lable, T initValue) : lable(lable), value(initValue)
+	{
+	}
+	template<typename T>
+	string GenericPair<T>::GetLable()const
+	{
+		return lable;
+	}
+
+	template<typename T>
+	bool GenericPair<T>::operator<(const IGenericPair& other) const
+	{
+		return value < ((GenericPair<T>*)& other)->value;
+	}
+
+	template<typename T>
+	bool GenericPair<T>::operator>(const IGenericPair& other) const
+	{
+		return value > ((GenericPair<T>*) & other)->value;
+	}
+
+	template<typename T>
+	bool GenericPair<T>::operator==(const IGenericPair& other) const
+	{
+		return value == ((GenericPair<T>*) & other)->value;
 	}
 }
