@@ -24,6 +24,9 @@ namespace GenericTable
 		bool IGenericPair::operator<(const IGenericPair& other)const;
 		bool IGenericPair::operator>(const IGenericPair& other)const;
 		bool IGenericPair::operator==(const IGenericPair& other)const;
+		IGenericPair* operator+(const IGenericPair& other)const;
+		//若实例化相对应符号重载时出现问题, 需要写一个特化模板专门处理例外.
+		IGenericPair* operator/(const int& divider)const;
 	};
 	
 	template<typename T>
@@ -36,6 +39,24 @@ namespace GenericTable
 	inline IGenericPair* GenericPair<T>::CopyNew()
 	{
 		return new GenericPair<T>(lable, value);
+	}
+
+	template<typename T>
+	inline IGenericPair* GenericPair<T>::operator+(const IGenericPair& other) const
+	{
+		return new GenericPair<T>(lable, value + ((GenericPair<T>*) & other)->value);
+	}
+
+	template<>
+	inline IGenericPair* GenericTable::GenericPair<string>::operator/(const int& divider) const
+	{
+		return new GenericPair<string>(lable, value);
+	}
+
+	template<typename T>
+	inline IGenericPair* GenericPair<T>::operator/(const int& divider) const
+	{
+		return new GenericPair<T>(lable, value / divider);
 	}
 
 	//template<typename T>

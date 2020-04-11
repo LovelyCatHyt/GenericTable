@@ -15,5 +15,7 @@ namespace GenericTable
 		virtual bool operator<(const IGenericPair& other)const = 0;
 		virtual bool operator>(const IGenericPair& other)const = 0;
 		virtual bool operator==(const IGenericPair& other)const = 0;
+		virtual IGenericPair* operator+(const IGenericPair& other)const = 0;
+		virtual IGenericPair* operator/(const int& divider)const = 0;
 	};
 }
